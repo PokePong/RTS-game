@@ -3,14 +3,10 @@ package instance;
 import engine.math.*;
 import engine.core.Context;
 import engine.scene.Camera;
-import engine.util.Debug;
-import module.Color4;
 import module.camera.component.Frustum;
-import module.camera.controller.FPSCamera;
 import module.camera.controller.OrbitCamera;
 import module.camera.component.ScreenSelectionBox;
 import module.infiniteGrid.InfiniteGrid;
-import org.lwjgl.system.CallbackI;
 
 
 public class RTSgame extends Context {
