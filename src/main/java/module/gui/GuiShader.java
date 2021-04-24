@@ -30,7 +30,7 @@ public class GuiShader extends Shader {
     }
 
     public void updateUniforms(GuiObject object) {
-        setUniform("m_Ortho", object.getOrthoMatrix());
-        setUniform("color", object.getColor().toVector4f());
+        setUniform("m_Ortho", object.getTransform().getOrthographicMatrix());
+        setUniform("color", object.getColor().toVector4());
     }
 }

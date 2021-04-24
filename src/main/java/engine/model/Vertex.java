@@ -1,38 +1,38 @@
 package engine.model;
 
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+
+import engine.math.Vector3;
 
 public class Vertex {
 
     public static final int FLOATS = 6;
     public static final int BYTES = FLOATS * Float.BYTES;
 
-    private Vector3f position;
-    private Vector3f normal;
+    private Vector3 position;
+    private Vector3 normal;
 
-    public Vertex(Vector3f position) {
-        this(position, new Vector3f(0, 0, 1));
+    public Vertex(Vector3 position) {
+        this(position, new Vector3(0, 0, 1));
     }
 
-    public Vertex(Vector3f position, Vector3f normal) {
+    public Vertex(Vector3 position, Vector3 normal) {
         this.position = position;
         this.normal = normal;
     }
 
-    public Vector3f getPosition() {
+    public Vector3 getPosition() {
         return position;
     }
 
-    public void setPosition(Vector3f position) {
+    public void setPosition(Vector3 position) {
         this.position = position;
     }
 
-    public Vector3f getNormal() {
+    public Vector3 getNormal() {
         return normal;
     }
 
-    public void setNormal(Vector3f normal) {
+    public void setNormal(Vector3 normal) {
         this.normal = normal;
     }
 

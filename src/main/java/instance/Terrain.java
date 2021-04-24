@@ -1,21 +1,21 @@
 package instance;
 
+import engine.math.Vector3;
 import engine.model.Mesh;
 import engine.model.Vertex;
 import engine.renderer.Default;
 import engine.renderer.Renderer;
 import engine.scene.GameObject;
 import engine.util.Constants;
-import module.Color4f;
+import module.Color4;
 import module.buffer.MeshVBO;
 import module.shader.GenericShader;
-import org.joml.Vector3f;
 
 public class Terrain extends GameObject {
 
     private int size;
 
-    public Terrain(int size, Color4f color) {
+    public Terrain(int size, Color4 color) {
         this.size = size;
         setColor(color);
     }
@@ -25,7 +25,7 @@ public class Terrain extends GameObject {
         Mesh mesh = createTerrainMesh();
         setVbo(new MeshVBO(mesh));
 
-        getWorldTransform().getTranslation().set(-size/2, 0.01f, -size/2);
+        getWorldTransform().translateTo(-size / 2, 0.01f, -size / 2);
 
         Renderer renderer = new Renderer(GenericShader.getInstance(), new Default());
         renderer.setParent(this);
@@ -43,7 +43,7 @@ public class Terrain extends GameObject {
         int count = 0;
         for (int z = 0; z < size; z++) {
             for (int x = 0; x < size; x++) {
-                vertices[count++] = new Vertex(new Vector3f(x, 0, z));
+                vertices[count++] = new Vertex(new Vector3(x, 0, z));
             }
         }
         int[] indices = new int[6 * (size - 1) * (size - 1)];

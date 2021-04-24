@@ -1,7 +1,6 @@
 package engine.core;
 
-import engine.util.Debug;
-import org.joml.Vector2f;
+import engine.math.Vector2;
 import org.lwjgl.glfw.*;
 
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ public class Input {
 
     private static float scrollOffSet;
 
-    private static Vector2f cursorPosition;
-    private static Vector2f dispVec;
+    private static Vector2 cursorPosition;
+    private static Vector2 dispVec;
 
     protected static void init(long window) {
 
@@ -36,8 +35,8 @@ public class Input {
         buttonsHold = new ArrayList<Integer>();
         buttonsUp = new ArrayList<Integer>();
 
-        cursorPosition = new Vector2f();
-        dispVec = new Vector2f();
+        cursorPosition = new Vector2();
+        dispVec = new Vector2();
 
         GLFW.glfwSetKeyCallback(window, (keyboard = new GLFWKeyCallback() {
             @Override
@@ -80,8 +79,8 @@ public class Input {
                 float mouseX = (float) x;
                 float mouseY = (float) y;
 
-                dispVec = new Vector2f(mouseX - cursorPosition.x, mouseY - cursorPosition.y);
-                cursorPosition = new Vector2f(mouseX, mouseY);
+                dispVec = new Vector2(mouseX - cursorPosition.x, mouseY - cursorPosition.y);
+                cursorPosition = new Vector2(mouseX, mouseY);
             }
         }));
 
@@ -103,7 +102,7 @@ public class Input {
         buttonsDown.clear();
         buttonsUp.clear();
 
-        dispVec.set(0, 0);
+        dispVec = new Vector2(0);
     }
 
     public static boolean isKeyDown(int key) {
@@ -153,22 +152,22 @@ public class Input {
         Input.scrollOffSet = scrollOffSet;
     }
 
-    public static Vector2f getCursorPosition() {
+    public static Vector2 getCursorPosition() {
         return cursorPosition;
     }
 
-    public static Vector2f getNormalizedCursorPosition() {
+    public static Vector2 getNormalizedCursorPosition() {
         float x = (2f * cursorPosition.x) / Window.width - 1;
         float y = (2f * cursorPosition.y) / Window.height - 1;
-        return new Vector2f(x, y);
+        return new Vector2(x, y);
     }
 
-    public static void setCursorPosition(Vector2f cursorPosition, long window) {
+    public static void setCursorPosition(Vector2 cursorPosition, long window) {
         Input.cursorPosition = cursorPosition;
         GLFW.glfwSetCursorPos(window, cursorPosition.x, cursorPosition.y);
     }
 
-    public static Vector2f getDispVec() {
+    public static Vector2 getDispVec() {
         return dispVec;
     }
 

@@ -6,7 +6,8 @@ import engine.renderer.Default;
 import engine.renderer.Renderer;
 import engine.scene.GameObject;
 import engine.util.Constants;
-import module.Color4f;
+import engine.util.Debug;
+import module.Color4;
 import module.instanced.InstancedCluster;
 import module.instanced.InstancedGenericShader;
 import module.instanced.InstancedMeshVBO;
@@ -22,13 +23,14 @@ public class PeopleCluster extends InstancedCluster {
     @Override
     public void __init__() {
         setVbo(new InstancedMeshVBO(Mesh.CUBE));
-        getLocalTransform().translate(-0.5f, 0, -0.5f);
+        getLocalTransform().translateTo(-0.5f, 0, -0.5f);
 
         addComponent(Constants.RENDERER_COMPONENT, new Renderer(InstancedGenericShader.getInstance(), new Default()));
     }
 
     @Override
     public void __update__(double delta) {
+        Debug.log(getRendersSize());
         if(Input.isKeyDown(GLFW.GLFW_KEY_L)) {
             addInstance();
         }
@@ -36,6 +38,6 @@ public class PeopleCluster extends InstancedCluster {
 
     @Override
     public GameObject createNewInstance() {
-        return new People(Color4f.random());
+        return new People(Color4.random());
     }
 }

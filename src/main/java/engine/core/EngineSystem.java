@@ -44,20 +44,18 @@ public class EngineSystem {
             Window.width = nwidth;
             Window.height = nheight;
             GL11.glViewport(0, 0, nwidth, nheight);
-            context.getScenegraph().getCamera().calculateProjectionMatrix();
+            context.getScenegraph().getCamera().processProjectionMatrix();
         });
     }
 
     private void displayGameSettings() {
-        Debug.log("======================================================");
         Debug.log("Name: " + engine.getConfig().getWindow_title());
         Debug.log("Version: " + engine.getConfig().getVersion());
         Debug.log("Window dimension: " + engine.getConfig().getWindow_width() + " x "
                 + engine.getConfig().getWindow_height() + " pixels");
-        Debug.log("Fps_cap: " + engine.getConfig().getFps_cap());
+        Debug.log("Fps_cap: " + engine.getConfig().getFps_cap() + " | Ups_cap: " + engine.getConfig().getUps_cap());
         Debug.log("Powered by LWJGL: " + Version.getVersion());
         Debug.log("Running with OpenGL: " + GL11.glGetString(GL11.GL_VERSION));
-        Debug.log("======================================================");
     }
 
     public Context getContext() {

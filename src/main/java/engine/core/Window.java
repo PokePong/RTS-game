@@ -1,6 +1,7 @@
 package engine.core;
 
-import org.joml.Matrix4f;
+import engine.math.Matrix4;
+import engine.util.Debug;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -22,7 +23,8 @@ public class Window {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
-            throw new IllegalStateException("[GLFW] Unable to initialize GLFW!");
+            Debug.fatal("[GLFW] Unable to initialize GLFW!");
+            throw new RuntimeException();
         }
 
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
@@ -33,7 +35,8 @@ public class Window {
 
         window = glfwCreateWindow(width, height, title, 0, 0);
         if (window == 0) {
-            throw new RuntimeException("[GLFW] Failed to create window!");
+            Debug.fatal("[GLFW] Failed to create window!");
+            throw new RuntimeException();
         }
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
@@ -80,8 +83,8 @@ public class Window {
         return window;
     }
 
-    public static Matrix4f getOrthoMatrix() {
-        return new Matrix4f().ortho2D(0, width, 0, height);
+    public static Matrix4 getOrthoMatrix() {
+        return Matrix4.orthographic(0, width, 0, height, -1, 1);
     }
 
 

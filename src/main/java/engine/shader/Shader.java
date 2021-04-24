@@ -1,18 +1,17 @@
 package engine.shader;
 
+import engine.math.Matrix4;
+import engine.math.Vector2;
+import engine.math.Vector3;
+import engine.math.Vector4;
 import engine.scene.GameObject;
 import engine.util.BufferUtils;
 import engine.util.ResourceLoader;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL31;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL40;
 import org.lwjgl.opengl.GL43;
-import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
 import java.util.HashMap;
@@ -159,32 +158,29 @@ public abstract class Shader {
         }
     }
 
-    public void setUniform(String uniformName, Vector2f value) {
+    public void setUniform(String uniformName, Vector2 value) {
         if (uniforms.get(uniformName) == null)
             return;
         GL20.glUniform2f(uniforms.get(uniformName), value.x, value.y);
     }
 
-    public void setUniform(String uniformName, Vector3f value) {
+    public void setUniform(String uniformName, Vector3 value) {
         if (uniforms.get(uniformName) == null)
             return;
         GL20.glUniform3f(uniforms.get(uniformName), value.x, value.y, value.z);
     }
 
-    public void setUniform(String uniformName, Vector4f value) {
+    public void setUniform(String uniformName, Vector4 value) {
         if (uniforms.get(uniformName) == null)
             return;
         GL20.glUniform4f(uniforms.get(uniformName), value.x, value.y, value.z, value.w);
     }
 
-    public void setUniform(String uniformName, Matrix4f value) {
+    public void setUniform(String uniformName, Matrix4 value) {
         if (uniforms.get(uniformName) == null)
             return;
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer fb = stack.mallocFloat(16);
-            value.get(fb);
-            GL20.glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
-        }
+        FloatBuffer fb = BufferUtils.createFlippedBuffer(value);
+        GL20.glUniformMatrix4fv(uniforms.get(uniformName), false, fb);
     }
 
     public void setUniformBlock(String uniformName, int bindingIndex) {

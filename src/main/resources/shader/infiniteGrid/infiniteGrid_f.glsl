@@ -44,7 +44,7 @@ float computeDepth(vec3 pos) {
 
 float computeLinearDepth(vec3 pos) {
     float near = 0.1;
-    float far = 200;
+    float far = 50;
     float depth = computeDepth(pos) * 2.0 - 1.0;
     float linearDepth = (2.0 * near * far) / (far + near - depth * (far - near));
     return linearDepth / far;

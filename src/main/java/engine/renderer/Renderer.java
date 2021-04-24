@@ -2,7 +2,6 @@ package engine.renderer;
 
 import engine.scene.Component;
 import engine.shader.Shader;
-import engine.util.Debug;
 
 public class Renderer extends Component {
 
@@ -41,6 +40,10 @@ public class Renderer extends Component {
 
     public void enableRendering() {
         render = true;
+    }
+
+    public void setRender(boolean value){
+        render = value;
     }
 
     public Shader getShader() {

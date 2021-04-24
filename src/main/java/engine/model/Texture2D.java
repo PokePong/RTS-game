@@ -1,7 +1,6 @@
 package engine.model;
 
 import engine.util.ResourceLoader;
-import org.joml.Vector2i;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
@@ -120,12 +119,6 @@ public class Texture2D {
         allocate();
     }
 
-    public void resize(Vector2i size) {
-        this.width = size.x;
-        this.height = size.y;
-        allocate();
-    }
-
     private void allocate() {
         if (type == GL_TEXTURE_2D) {
             glTexImage2D(type, 0, internalFormat, width, height, 0, format, dataType, 0);
@@ -198,16 +191,16 @@ public class Texture2D {
 
             stbi_set_flip_vertically_on_load(true);
             data = stbi_load(path, w, h, comp, 4);
-            if (data == null)
+            if (data == null){
                 throw new RuntimeException(
                         "Failed to load a image file!" + System.lineSeparator() + stbi_failure_reason());
+            }
 
             width = w.get();
             height = h.get();
         }
         return createTexture(width, height, data);
     }
-
 
 
 }

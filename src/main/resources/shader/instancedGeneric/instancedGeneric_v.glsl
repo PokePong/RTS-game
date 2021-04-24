@@ -7,7 +7,7 @@ layout(location = 6) in vec4 in_Color;
 
 out vec3 out_Position;
 out vec3 out_Normal;
-out vec4 out_Color;
+out vec4 f_Color;
 
 layout (std140) uniform Camera {
     mat4 c_Projection;
@@ -23,7 +23,7 @@ void main(void) {
 
     out_Position = position.xyz;
     out_Normal = normalize(normal.xyz);
-    out_Color = in_Color;
+    f_Color = in_Color;
 
     gl_Position = c_Projection * c_View * position;
 }

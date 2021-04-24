@@ -1,41 +1,39 @@
 package engine.math;
 
 import engine.util.Utils;
-import org.joml.Vector3f;
 
 public class Plane {
 
-    private Vector3f normal;
+    private Vector3 normal;
     private float constant;
 
-    public Plane(Vector3f normal, Vector3f pos) {
-        this.normal = new Vector3f(normal).normalize();
+    public Plane(Vector3 normal, Vector3 pos) {
+        this.normal = normal.normalize();
         this.constant = -normal.dot(pos);
     }
 
-    public Plane(Vector3f a, Vector3f b, Vector3f c) {
-        Vector3f x = new Vector3f(b).sub(a);
-        Vector3f y = new Vector3f(c).sub(a);
-        this.normal = new Vector3f(x).cross(y).normalize();
-        this.constant = normal.dot(a);
-
+    public Plane(Vector3 a, Vector3 b, Vector3 c) {
+        Vector3 x = b.sub(a);
+        Vector3 y = c.sub(a);
+        this.normal = x.cross(y).normalize();
+        this.constant = -normal.dot(a);
     }
 
-    public Plane(Vector3f normal, float constant) {
-        this.normal = new Vector3f(normal).normalize();
+    public Plane(Vector3 normal, float constant) {
+        this.normal = normal.normalize();
         this.constant = constant;
     }
 
-    public void set(Vector3f normal, Vector3f pos) {
-        normal = new Vector3f(normal).normalize();
-        constant = -normal.dot(pos);
+    public void set(Vector3 normal, Vector3 pos) {
+        this.normal = normal.normalize();
+        this.constant = -normal.dot(pos);
     }
 
-    public void set(Vector3f a, Vector3f b, Vector3f c) {
-        Vector3f x = new Vector3f(b).sub(a);
-        Vector3f y = new Vector3f(c).sub(a);
-        normal = new Vector3f(x).cross(y).normalize();
-        constant = normal.dot(a);
+    public void set(Vector3 a, Vector3 b, Vector3 c) {
+        Vector3 x = b.sub(a);
+        Vector3 y = c.sub(a);
+        normal = x.cross(y).normalize();
+        constant = -normal.dot(a);
     }
 
     public void flip() {
@@ -43,36 +41,35 @@ public class Plane {
         constant *= -1f;
     }
 
-    public void translate(Vector3f translation) {
+    public void translate(Vector3 translation) {
         constant += normal.dot(translation);
     }
 
-    public Vector3f getClosestPointOnPlane(Vector3f from) {
+    public Vector3 getClosestPointOnPlane(Vector3 from) {
         float dist = normal.dot(from) + constant;
-        Vector3f res = new Vector3f(from);
-        res.sub(new Vector3f(normal).mul(dist));
+        Vector3 res = from.sub(normal.mul(dist));
         return res;
     }
 
-    public float getDistanceToPoint(Vector3f point) {
+    public float getDistanceToPoint(Vector3 point) {
         return normal.dot(point) + constant;
     }
 
     public float rayCast(Ray ray) {
-        float vdot = ray.getDirection().dot(normal);
-        float ndot = -ray.getOrigin().dot(normal) - constant;
+        float vdot = normal.dot(ray.getDirection());
+        float ndot = -normal.dot(ray.getOrigin()) - constant;
 
-        if(Utils.approximately(vdot, 0.0f)) {
+        if (Utils.approximately(vdot, 0.0f)) {
             return 0.0f;
         }
         return ndot / vdot;
     }
 
-    public Vector3f getNormal() {
+    public Vector3 getNormal() {
         return normal;
     }
 
-    public void setNormal(Vector3f normal) {
+    public void setNormal(Vector3 normal) {
         this.normal = normal;
     }
 

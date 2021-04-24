@@ -1,7 +1,6 @@
 package engine.model;
 
 import engine.util.OBJLoader;
-import org.joml.Vector4f;
 
 public class Mesh {
 

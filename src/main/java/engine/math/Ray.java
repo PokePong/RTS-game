@@ -1,36 +1,34 @@
 package engine.math;
 
-import org.joml.Vector3f;
 
 public class Ray {
 
-    private Vector3f origin;
-    private Vector3f direction;
+    private Vector3 origin;
+    private Vector3 direction;
 
-    public Ray(Vector3f origin, Vector3f direction) {
+    public Ray(Vector3 origin, Vector3 direction) {
         this.origin = origin;
         this.direction = direction;
     }
 
     // Returns a point at /distance/ units along the ray.
-    public Vector3f getPoint(float distance) {
-        Vector3f res = new Vector3f();
-        return origin.add(new Vector3f(direction).mul(distance), res);
+    public Vector3 getPoint(float distance) {
+        return direction.mul(distance).add(origin);
     }
 
-    public Vector3f getOrigin() {
+    public Vector3 getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Vector3f origin) {
+    public void setOrigin(Vector3 origin) {
         this.origin = origin;
     }
 
-    public Vector3f getDirection() {
+    public Vector3 getDirection() {
         return direction;
     }
 
-    public void setDirection(Vector3f direction) {
+    public void setDirection(Vector3 direction) {
         this.direction = direction;
     }
 

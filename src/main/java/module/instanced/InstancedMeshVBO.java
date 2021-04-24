@@ -1,18 +1,14 @@
 package module.instanced;
 
-import engine.gl.VBO;
 import engine.model.Mesh;
-import engine.model.Vertex;
 import engine.scene.GameObject;
 import engine.scene.Node;
 import engine.util.BufferUtils;
-import engine.util.Debug;
-import module.Color4f;
+import module.Color4;
 import module.buffer.MeshVBO;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -33,7 +29,7 @@ public class InstancedMeshVBO extends MeshVBO {
         this.instanceId = glGenBuffers();
     }
 
-    public void uploadInstancedData(List<Node> instances) {
+    public void uploadInstancedData(List<GameObject> instances) {
         this.instancesCount = instances.size();
 
         glBindVertexArray(vaoId);
@@ -102,16 +98,17 @@ public class InstancedMeshVBO extends MeshVBO {
         return instancesCount;
     }
 
-    public FloatBuffer createFlippedDataBuffer(List<Node> instances) {
+    public FloatBuffer createFlippedDataBuffer(List<GameObject> instances) {
         int dataSize = 4 * 4 + 4;
         int bufferSize = instancesCount * dataSize;
         FloatBuffer buffer = BufferUtils.createFloatBuffer(bufferSize);
         for (int i = 0; i < instancesCount; i++) {
-            GameObject object = (GameObject) instances.get(i);
-            Color4f color = object.getColor();
-            object.getWorldTransform().getWorldMatrix().get(i * dataSize, buffer);
-            color.toVector4f().get((i + 1) * dataSize - 4, buffer);
+            GameObject object = instances.get(i);
+            Color4 color = object.getColor();
+            object.getWorldTransform().getWorldMatrix().fillFloatBuffer(buffer);
+            color.toVector4().fillFloatBuffer(buffer);
         }
+        buffer.flip();
         return buffer;
     }
 

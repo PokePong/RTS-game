@@ -1,8 +1,8 @@
 package engine.renderer;
 
-import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL30;
 
-import engine.renderer.RenderConfig;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Default implements RenderConfig {
 

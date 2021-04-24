@@ -1,21 +1,19 @@
 package module.gui;
 
-import engine.core.Window;
 import engine.gl.VBO;
 import engine.math.Transform;
-import module.Color4f;
-import org.joml.Matrix4f;
+import module.Color4;
 
 public class GuiObject {
 
-    private Matrix4f worldMatrix;
+    private Transform transform;
     private VBO vbo;
-    private Color4f color;
+    private Color4 color;
 
     public GuiObject() {
-        this.worldMatrix = new Matrix4f();
+        this.transform = new Transform();
         this.vbo = new GuiVBO();
-        this.color = Color4f.TRANSPARENT;
+        this.color = Color4.TRANSPARENT;
     }
 
     public void init() {
@@ -38,23 +36,19 @@ public class GuiObject {
         return vbo;
     }
 
-    public Matrix4f getOrthoMatrix() {
-        return Window.getOrthoMatrix().mul(worldMatrix);
+    public Transform getTransform() {
+        return transform;
     }
 
-    public Matrix4f getWorldMatrix() {
-        return worldMatrix;
+    public void setTransform(Transform transform) {
+        this.transform = transform;
     }
 
-    public void setWorldMatrix(Matrix4f worldMatrix) {
-        this.worldMatrix = worldMatrix;
-    }
-
-    public Color4f getColor() {
+    public Color4 getColor() {
         return color;
     }
 
-    public void setColor(Color4f color) {
+    public void setColor(Color4 color) {
         this.color = color;
     }
 }

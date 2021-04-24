@@ -4,7 +4,7 @@ layout (location = 0) out vec4 out_Albedo;
 
 in vec3 out_Position;
 in vec3 out_Normal;
-in vec4 out_Color;
+in vec4 f_Color;
 
 void main(void) {
 
@@ -20,7 +20,7 @@ void main(void) {
     float diffuseFactor = max(dot(normalize(out_Normal), lightDir), 0.0);
     vec3 diffuse = diffuseFactor * lightColor;
 
-    vec3 res = (ambiant + diffuse) * out_Color.rgb;
+    vec3 res = (ambiant + diffuse) * f_Color.rgb;
     out_Albedo = vec4(res, 1.0);
 
 }

@@ -4,8 +4,10 @@ import engine.core.Input;
 import engine.math.Transform;
 import engine.renderer.PolygonModeLine;
 import engine.renderer.RenderConfig;
+import engine.scene.Camera;
 import engine.scene.Component;
-import module.Color4f;
+import engine.util.Debug;
+import module.Color4;
 import module.shader.GenericShader;
 import org.lwjgl.glfw.GLFW;
 
@@ -16,7 +18,7 @@ public class BoundingBox extends Component {
     private float depth;
 
     private Transform transform;
-    private Color4f color = Color4f.GREEN.brighter();
+    private Color4 color = Color4.GREEN.brighter();
 
     public BoundingBox(float width, float height, float depth) {
         this.width = width;
@@ -28,7 +30,7 @@ public class BoundingBox extends Component {
     public void init() {
         transform.translateTo(getParent().getLocalTransform().getTranslation());
         transform.translate((1 - width) / 2, (1 - height) / 2, (1 - depth) / 2);
-        transform.setScaling(width, height, depth);
+        transform.scaleTo(width, height, depth);
     }
 
     public void update(double delta) {

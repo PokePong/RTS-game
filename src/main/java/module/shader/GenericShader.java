@@ -4,7 +4,7 @@ import engine.math.Transform;
 import engine.scene.GameObject;
 import engine.shader.Shader;
 import engine.util.Constants;
-import module.Color4f;
+import module.Color4;
 
 public class GenericShader extends Shader {
 
@@ -23,24 +23,24 @@ public class GenericShader extends Shader {
         addFragmentShader();
         validateShader();
 
+        addUniform("color");
         addUniform("localMatrix");
         addUniform("worldMatrix");
         addUniformBlock("Camera");
-        addUniform("color");
     }
 
     @Override
     public void updateUniforms(GameObject gameObject) {
+        setUniformBlock("Camera", Constants.CAMERA_UBO_BINDING_INDEX);
         setUniform("localMatrix", gameObject.getLocalTransform().getWorldMatrix());
         setUniform("worldMatrix", gameObject.getWorldTransform().getWorldMatrix());
-        setUniformBlock("Camera", Constants.CAMERA_UBO_BINDING_INDEX);
-        setUniform("color", gameObject.getColor().toVector4f());
+        setUniform("color", gameObject.getColor().toVector4());
     }
 
-    public void updateUniforms(Transform localTransform, Transform worldTransform, Color4f color) {
+    public void updateUniforms(Transform localTransform, Transform worldTransform, Color4 color) {
         setUniform("localMatrix", localTransform.getWorldMatrix());
         setUniform("worldMatrix", worldTransform.getWorldMatrix());
         setUniformBlock("Camera", Constants.CAMERA_UBO_BINDING_INDEX);
-        setUniform("color", color.toVector4f());
+        setUniform("color", color.toVector4());
     }
 }

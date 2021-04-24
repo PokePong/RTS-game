@@ -1,10 +1,8 @@
 package engine.util;
 
-import engine.model.Vertex;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import org.lwjgl.system.MemoryStack;
+import engine.math.Matrix4;
+import engine.math.Vector3;
+import engine.math.Vector4;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
@@ -34,7 +32,7 @@ public class BufferUtils {
         return ret;
     }
 
-    public static FloatBuffer createFlippedBuffer(Vector3f vector) {
+    public static FloatBuffer createFlippedBuffer(Vector3 vector) {
         FloatBuffer buffer = createFloatBuffer(Float.BYTES * 3);
         buffer.put(vector.x);
         buffer.put(vector.y);
@@ -43,7 +41,7 @@ public class BufferUtils {
         return buffer;
     }
 
-    public static FloatBuffer createFlippedBuffer(Vector4f vector) {
+    public static FloatBuffer createFlippedBuffer(Vector4 vector) {
         FloatBuffer buffer = createFloatBuffer(Float.BYTES * 4);
         buffer.put(vector.x);
         buffer.put(vector.y);
@@ -53,9 +51,10 @@ public class BufferUtils {
         return buffer;
     }
 
-    public static FloatBuffer createFlippedBuffer(Matrix4f matrix) {
+    public static FloatBuffer createFlippedBuffer(Matrix4 matrix) {
         FloatBuffer buffer = createFloatBuffer(4 * 4);
-        matrix.get(buffer);
+        matrix.fillFloatBuffer(buffer);
+        buffer.flip();
         return buffer;
     }
 

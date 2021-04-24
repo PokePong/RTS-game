@@ -1,42 +1,36 @@
 package engine.scene;
 
 import engine.gl.VBO;
-import engine.model.Mesh;
-import engine.renderer.Renderer;
 import engine.util.Constants;
 import engine.util.Debug;
-import module.Color4f;
-import module.shader.GenericShader;
-import engine.renderer.Default;
+import module.Color4;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public abstract class GameObject extends Node {
 
+    private UUID uuid;
     private VBO vbo;
     private HashMap<String, Component> components;
-    private Color4f color;
+    private Color4 color;
+    private boolean instanced;
 
     public GameObject() {
         this.components = new HashMap<String, Component>();
-    }
-
-    public void addComponent(String name, Component component) {
-        if (components.containsKey(name))
-            throw new IllegalStateException("[Component] Already exists! " + name);
-        component.setParent(this);
-        components.put(name, component);
+        this.uuid = UUID.randomUUID();
+        this.instanced = false;
     }
 
     @Override
     public void init() {
         super.init();
         __init__();
+        if (!instanced && !components.containsKey(Constants.RENDERER_COMPONENT)) {
+            Debug.warn("Renderer component missing!");
+        }
         for (String key : components.keySet()) {
             components.get(key).init();
-        }
-        if (!components.containsKey(Constants.RENDERER_COMPONENT)) {
-            throw new IllegalStateException("[Component] Renderer Component missing!");
         }
     }
 
@@ -69,10 +63,29 @@ public abstract class GameObject extends Node {
 
     public abstract void __update__(double delta);
 
+    public void addComponent(String name, Component component) {
+        if (components.containsKey(name)) {
+            Debug.err("Component already exists! " + name);
+            return;
+        }
+        component.setParent(this);
+        components.put(name, component);
+    }
+
+    public void removeComponent(String name) {
+        if (!components.containsKey(name)) {
+            Debug.err("Component doesn't exist!");
+            return;
+        }
+        components.remove(name);
+    }
+
     public Component getComponent(String key) {
-        if (components.containsKey(key))
-            return components.get(key);
-        return null;
+        if (!components.containsKey(key)) {
+            Debug.err("Component doesn't exist!");
+            return null;
+        }
+        return components.get(key);
     }
 
     public HashMap<String, Component> getComponents() {
@@ -87,11 +100,23 @@ public abstract class GameObject extends Node {
         this.vbo = vbo;
     }
 
-    public Color4f getColor() {
+    public Color4 getColor() {
         return color;
     }
 
-    public void setColor(Color4f color) {
+    public void setColor(Color4 color) {
         this.color = color;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public boolean isInstanced() {
+        return instanced;
+    }
+
+    public void setInstanced(boolean instanced) {
+        this.instanced = instanced;
     }
 }

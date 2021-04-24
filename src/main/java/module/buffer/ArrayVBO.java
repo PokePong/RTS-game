@@ -1,9 +1,8 @@
 package module.buffer;
 
 import engine.gl.VBO;
-import engine.model.Vertex;
+import engine.math.Vector3;
 import engine.util.BufferUtils;
-import org.joml.Vector3f;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
@@ -19,13 +18,13 @@ public class ArrayVBO implements VBO {
     private int vboId;
     private int size;
 
-    public ArrayVBO(Vector3f[] vertices) {
+    public ArrayVBO(Vector3[] vertices) {
         this.vaoId = glGenVertexArrays();
         this.vboId = glGenBuffers();
         addData(vertices);
     }
 
-    public void addData(Vector3f[] vertices) {
+    public void addData(Vector3[] vertices) {
         this.size = vertices.length;
 
         glBindVertexArray(vaoId);
@@ -69,7 +68,7 @@ public class ArrayVBO implements VBO {
         return vaoId;
     }
 
-    public static FloatBuffer createFlippedBuffer(Vector3f[] vertices) {
+    public static FloatBuffer createFlippedBuffer(Vector3[] vertices) {
         FloatBuffer ret = BufferUtils.createFloatBuffer(vertices.length * 3);
         for (int i = 0; i < vertices.length; i++) {
             ret.put(vertices[i].x);

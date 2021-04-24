@@ -1,17 +1,19 @@
 package module.instanced;
 
-import engine.renderer.Renderer;
 import engine.scene.GameObject;
-import engine.scene.Node;
 import engine.util.Constants;
 
+import java.util.*;
 
 public abstract class InstancedCluster extends GameObject {
 
+    private Map<UUID, GameObject> renders;
     private int numInstances;
 
     public InstancedCluster(int numInstances) {
+        super();
         this.numInstances = numInstances;
+        this.renders = new HashMap<>();
     }
 
     @Override
@@ -28,13 +30,14 @@ public abstract class InstancedCluster extends GameObject {
 
     public void addInstance() {
         GameObject object = createNewInstance();
+        object.setInstanced(true);
         object.init();
-        processInstance(object);
+        object.removeComponent(Constants.RENDERER_COMPONENT);
         addChild(object);
     }
 
     private void uploadInstancesData() {
-        ((InstancedMeshVBO) getVbo()).uploadInstancedData(getChildren());
+        ((InstancedMeshVBO) getVbo()).uploadInstancedData(new ArrayList<>(renders.values()));
     }
 
     private void createInstances() {
@@ -43,14 +46,26 @@ public abstract class InstancedCluster extends GameObject {
         }
     }
 
-    private void processInstance(GameObject object) {
-        ((Renderer) object.getComponent(Constants.RENDERER_COMPONENT)).disableRendering();
-    }
-
     public abstract GameObject createNewInstance();
 
     public int getInstancesSize() {
         return getChildren().size();
+    }
+
+    public int getRendersSize() {
+        return renders.size();
+    }
+
+    public void processCullingInstance(boolean cull, GameObject child) {
+        if (cull) {
+            if (renders.containsKey(child.getUuid())) {
+                renders.remove(child.getUuid());
+            }
+        } else {
+            if (!renders.containsKey(child.getUuid())) {
+                renders.put(child.getUuid(), child);
+            }
+        }
     }
 
 }
