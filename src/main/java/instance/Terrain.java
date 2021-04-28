@@ -1,6 +1,6 @@
 package instance;
 
-import engine.math.Vector3;
+import engine.math.vector.Vector3;
 import engine.model.Mesh;
 import engine.model.Vertex;
 import engine.renderer.Default;

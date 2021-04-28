@@ -1,12 +1,11 @@
 package instance;
 
-import engine.core.Input;
+import engine.core.kernel.Input;
 import engine.model.Mesh;
 import engine.renderer.Default;
 import engine.renderer.Renderer;
 import engine.scene.GameObject;
 import engine.util.Constants;
-import engine.util.Debug;
 import module.Color4;
 import module.instanced.InstancedCluster;
 import module.instanced.InstancedGenericShader;
@@ -30,7 +29,6 @@ public class PeopleCluster extends InstancedCluster {
 
     @Override
     public void __update__(double delta) {
-        Debug.log(getRendersSize());
         if(Input.isKeyDown(GLFW.GLFW_KEY_L)) {
             addInstance();
         }

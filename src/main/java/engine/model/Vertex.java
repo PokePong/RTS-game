@@ -1,7 +1,7 @@
 package engine.model;
 
 
-import engine.math.Vector3;
+import engine.math.vector.Vector3;
 
 public class Vertex {
 

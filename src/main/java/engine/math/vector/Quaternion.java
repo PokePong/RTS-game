@@ -1,6 +1,7 @@
-package engine.math;
+package engine.math.vector;
 
-import engine.util.Debug;
+import engine.math.FastMath;
+import engine.math.Matrix4;
 
 import java.io.Serializable;
 
@@ -12,6 +13,10 @@ public final class Quaternion extends Vector4A<Quaternion> implements Serializab
      * Represents the identity quaternion rotation (0, 0, 0, 1).
      */
     public static final Quaternion IDENTITY = new Quaternion(0, 0, 0, 1);
+
+    /**
+     * Represents the zero quaternion rotation (0, 0, 0, 0).
+     */
     public static final Quaternion ZERO = new Quaternion(0, 0, 0, 0);
 
     /**
@@ -308,6 +313,13 @@ public final class Quaternion extends Vector4A<Quaternion> implements Serializab
         return q1.lerp(q2, t);
     }
 
+    /**
+     * <code>lerp</code> sets this quaternion's value as an interpolation between
+     * two other quaternions.
+     * @param q2
+     * @param changeAmnt
+     * @return
+     */
     public Quaternion lerp(Quaternion q2, float changeAmnt) {
         if (this.x == q2.x && this.y == q2.y && this.z == q2.z && this.w == q2.w) {
             return this;

@@ -60,18 +60,18 @@ public class Window {
         setTitle(title + " - " + addon);
     }
 
-    protected static void draw() {
+    public static void draw() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    protected static void destroy() {
+    public static void destroy() {
         glfwDestroyWindow(window);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
 
-    protected static boolean shouldClose() {
+    public static boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 

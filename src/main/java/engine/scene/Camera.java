@@ -1,8 +1,12 @@
 package engine.scene;
 
-import engine.core.EngineConfig;
+import engine.core.kernel.EngineConfig;
 import engine.core.Window;
 import engine.math.*;
+import engine.math.geometry.Ray;
+import engine.math.vector.Vector2;
+import engine.math.vector.Vector3;
+import engine.math.vector.Vector4;
 import engine.util.BufferUtils;
 import engine.util.Constants;
 import module.buffer.BlockUBO;

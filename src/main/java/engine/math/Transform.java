@@ -1,7 +1,8 @@
 package engine.math;
 
 import engine.core.Window;
-import engine.util.Debug;
+import engine.math.vector.Quaternion;
+import engine.math.vector.Vector3;
 
 public final class Transform {
 

@@ -1,5 +1,9 @@
 package engine.math;
 
+import engine.math.vector.Quaternion;
+import engine.math.vector.Vector3;
+import engine.math.vector.Vector4;
+
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -283,6 +287,27 @@ public final class Matrix4 implements Serializable {
         get(tmp, true);
         Matrix4 mat = new Matrix4(tmp);
         return mat;
+    }
+
+    public Matrix4 abs() {
+        Matrix4Temp temp = new Matrix4Temp();
+        temp.m00 = FastMath.abs(m00);
+        temp.m01 = FastMath.abs(m01);
+        temp.m02 = FastMath.abs(m02);
+        temp.m03 = FastMath.abs(m03);
+        temp.m10 = FastMath.abs(m10);
+        temp.m11 = FastMath.abs(m11);
+        temp.m12 = FastMath.abs(m12);
+        temp.m13 = FastMath.abs(m13);
+        temp.m20 = FastMath.abs(m20);
+        temp.m21 = FastMath.abs(m21);
+        temp.m22 = FastMath.abs(m22);
+        temp.m23 = FastMath.abs(m23);
+        temp.m30 = FastMath.abs(m30);
+        temp.m31 = FastMath.abs(m31);
+        temp.m32 = FastMath.abs(m32);
+        temp.m33 = FastMath.abs(m33);
+        return new Matrix4(temp);
     }
 
     /**

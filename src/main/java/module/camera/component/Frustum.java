@@ -1,11 +1,11 @@
 package module.camera.component;
 
-import engine.core.EngineConfig;
-import engine.core.Input;
+import engine.core.kernel.EngineConfig;
+import engine.core.kernel.Input;
 import engine.core.Window;
 import engine.math.FastMath;
-import engine.math.Plane;
-import engine.math.Vector3;
+import engine.math.geometry.Plane;
+import engine.math.vector.Vector3;
 import engine.renderer.Default;
 import engine.renderer.RenderConfig;
 import engine.scene.Camera;
@@ -25,7 +25,6 @@ public class Frustum extends Component {
 
     private Plane planes[];
     private Vector3 vertices[];
-    private ArrayVBO vbo;
 
     public Frustum() {
         this.lock = false;
@@ -52,7 +51,7 @@ public class Frustum extends Component {
     @Override
     public void render() {
         if (lock) {
-            drawWire();
+            Debug.drawWire(vertices, Color4.YELLOW);
         }
     }
 
@@ -126,13 +125,6 @@ public class Frustum extends Component {
         vertices[22] = nd;
         vertices[23] = fd;
 
-        updateVBO();
-    }
-
-    private void updateVBO() {
-        if (vbo == null)
-            this.vbo = new ArrayVBO(vertices);
-        vbo.addData(vertices);
     }
 
     private Vector3 getCorner(Vector3 center, float HH, float HW, Vector3 up, Vector3 right) {
@@ -144,18 +136,6 @@ public class Frustum extends Component {
         Vector3 dir = point.sub(camera.position()).normalize();
         return point.add(dir.mul(distance));
     }
-
-    private void drawWire() {
-        RenderConfig config = new Default();
-
-        ArrayShader.getInstance().bind();
-        config.enable();
-        ArrayShader.getInstance().updateUniforms(Color4.YELLOW);
-        vbo.render();
-        config.disable();
-        ArrayShader.getInstance().bind();
-    }
-
 
     private boolean contains(Plane plane, Vector3 point) {
         if (plane.getDistanceToPoint(point) < 0)

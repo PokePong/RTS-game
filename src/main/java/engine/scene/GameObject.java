@@ -1,6 +1,7 @@
 package engine.scene;
 
 import engine.gl.VBO;
+import engine.model.Mesh;
 import engine.util.Constants;
 import engine.util.Debug;
 import module.Color4;
@@ -11,6 +12,7 @@ import java.util.UUID;
 public abstract class GameObject extends Node {
 
     private UUID uuid;
+    private Mesh mesh;
     private VBO vbo;
     private HashMap<String, Component> components;
     private Color4 color;
@@ -90,6 +92,14 @@ public abstract class GameObject extends Node {
 
     public HashMap<String, Component> getComponents() {
         return components;
+    }
+
+    public Mesh getMesh() {
+        return mesh;
+    }
+
+    public void setMesh(Mesh mesh) {
+        this.mesh = mesh;
     }
 
     public VBO getVbo() {

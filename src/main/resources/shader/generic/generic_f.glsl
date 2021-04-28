@@ -21,7 +21,7 @@ void main(void) {
     float diffuseFactor = max(dot(normalize(f_Normal), lightDir), 0.0);
     vec3 diffuse = diffuseFactor * lightColor;
 
-    vec3 res = (ambiant + diffuse)  * vec3(color.rgb);
+    vec3 res = (ambiant + diffuse) * vec3(color.rgb);
     out_Albedo = vec4(res, 1.0);
 
 }

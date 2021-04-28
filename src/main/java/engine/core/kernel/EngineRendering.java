@@ -1,4 +1,4 @@
-package engine.core;
+package engine.core.kernel;
 
 import engine.renderer.Default;
 

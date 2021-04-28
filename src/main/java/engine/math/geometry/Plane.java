@@ -1,5 +1,6 @@
-package engine.math;
+package engine.math.geometry;
 
+import engine.math.vector.Vector3;
 import engine.util.Utils;
 
 public class Plane {

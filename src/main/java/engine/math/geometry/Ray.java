@@ -1,5 +1,7 @@
-package engine.math;
+package engine.math.geometry;
 
+
+import engine.math.vector.Vector3;
 
 public class Ray {
 

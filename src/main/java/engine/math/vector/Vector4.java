@@ -1,4 +1,4 @@
-package engine.math;
+package engine.math.vector;
 
 import java.io.Serializable;
 

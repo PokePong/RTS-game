@@ -1,7 +1,7 @@
 package module.buffer;
 
 import engine.gl.VBO;
-import engine.math.Vector3;
+import engine.math.vector.Vector3;
 import engine.util.BufferUtils;
 import org.lwjgl.system.MemoryUtil;
 

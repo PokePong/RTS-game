@@ -1,4 +1,6 @@
-package engine.math;
+package engine.math.vector;
+
+import engine.math.FastMath;
 
 import java.nio.FloatBuffer;
 

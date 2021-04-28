@@ -1,7 +1,9 @@
 package module.camera.controller;
 
-import engine.core.Input;
+import engine.core.kernel.Input;
 import engine.math.*;
+import engine.math.vector.Quaternion;
+import engine.math.vector.Vector3;
 import engine.scene.Camera;
 import engine.scene.CameraController;
 import org.lwjgl.glfw.GLFW;
@@ -63,15 +65,6 @@ public class FPSCamera implements CameraController {
             float rotX = Input.getDispVec().x * -rotateAmount;
             float rotY = Input.getDispVec().y * -rotateAmount;
             nRot = rotate(nRot, rotX, rotY);
-        }
-
-        if (Input.isButtonDown(0)) {
-            Ray ray = camera.getRay(Input.getCursorPosition());
-            Plane plane = new Plane(new Vector3(0, 1, 0), 0);
-
-            float entry = plane.rayCast(ray);
-
-            Vector3 pointOnPlane = ray.getPoint(entry);
         }
 
         world.moveSmooth(nPos, moveDelay);

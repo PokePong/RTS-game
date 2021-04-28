@@ -1,5 +1,7 @@
-package engine.core;
+package engine.core.kernel;
 
+import engine.core.Context;
+import engine.core.Window;
 import engine.util.Debug;
 import org.lwjgl.Version;
 import org.lwjgl.opengl.GL11;

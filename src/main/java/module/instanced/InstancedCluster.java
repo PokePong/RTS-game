@@ -28,6 +28,12 @@ public abstract class InstancedCluster extends GameObject {
         super.render();
     }
 
+    @Override
+    public void cleanUp() {
+        super.cleanUp();
+        renders.clear();
+    }
+
     public void addInstance() {
         GameObject object = createNewInstance();
         object.setInstanced(true);

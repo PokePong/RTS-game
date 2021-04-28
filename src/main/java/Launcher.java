@@ -1,4 +1,4 @@
-import engine.core.Engine;
+import engine.core.kernel.Engine;
 import instance.RTSgame;
 
 public class Launcher {

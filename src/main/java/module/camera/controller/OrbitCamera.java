@@ -1,9 +1,9 @@
 package module.camera.controller;
 
-import engine.core.Input;
-import engine.math.Quaternion;
+import engine.core.kernel.Input;
+import engine.math.vector.Quaternion;
 import engine.math.Transform;
-import engine.math.Vector3;
+import engine.math.vector.Vector3;
 import engine.scene.Camera;
 import engine.scene.CameraController;
 import org.lwjgl.glfw.GLFW;
@@ -82,7 +82,7 @@ public class OrbitCamera implements CameraController {
 
         if (Input.isButtonHold(2)) {
             float rotX = Input.getDispVec().x * -rotateAmount;
-            float rotY = Input.getDispVec().y * -rotateAmount;
+            float rotY = Input.getDispVec().y * rotateAmount;
             nRot = rotate(nRot, rotX, rotY);
         }
 

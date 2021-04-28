@@ -1,5 +1,8 @@
 package engine.math;
 
+import engine.math.vector.Vector2;
+import engine.math.vector.Vector3;
+
 import java.util.Random;
 
 public class FastMath {

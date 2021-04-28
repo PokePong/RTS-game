@@ -13,42 +13,7 @@
                 </RunConfigurationRef>
               </key>
               <value>
-                <Pins>
-                  <option name="pins">
-                    <list>
-                      <Pin>
-                        <option name="consoleUUID" value="12a2b6b2-be8e-4e4a-9a01-dea9afec1981" />
-                        <option name="contentType" value="ConsoleContent" />
-                        <option name="grepModel">
-                          <GrepModel>
-                            <option name="expression" value="" />
-                            <option name="unlessExpression" value="" />
-                          </GrepModel>
-                        </option>
-                      </Pin>
-                      <Pin>
-                        <option name="consoleUUID" value="44419c8c-c500-4fc9-8e4c-2bb8c3d03510" />
-                        <option name="contentType" value="ConsoleContent" />
-                        <option name="grepModel">
-                          <GrepModel>
-                            <option name="expression" value="" />
-                            <option name="unlessExpression" value="" />
-                          </GrepModel>
-                        </option>
-                      </Pin>
-                      <Pin>
-                        <option name="consoleUUID" value="249a2487-1a8c-4e16-9e18-8203fbf485be" />
-                        <option name="contentType" value="ConsoleContent" />
-                        <option name="grepModel">
-                          <GrepModel>
-                            <option name="expression" value="" />
-                            <option name="unlessExpression" value="" />
-                          </GrepModel>
-                        </option>
-                      </Pin>
-                    </list>
-                  </option>
-                </Pins>
+                <Pins />
               </value>
             </entry>
           </map>

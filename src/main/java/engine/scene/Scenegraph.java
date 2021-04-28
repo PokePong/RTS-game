@@ -21,8 +21,8 @@ public class Scenegraph extends Node {
     }
 
     public void render() {
-        camera.render();
         root.render();
+        camera.render();
     }
 
     public void update(double delta) {

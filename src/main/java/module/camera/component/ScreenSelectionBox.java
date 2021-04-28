@@ -1,7 +1,7 @@
 package module.camera.component;
 
-import engine.core.Input;
-import engine.math.Vector2;
+import engine.core.kernel.Input;
+import engine.math.vector.Vector2;
 import engine.scene.Component;
 import engine.util.Debug;
 import module.Color4;

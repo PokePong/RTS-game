@@ -2,13 +2,16 @@ package engine.util;
 
 import engine.core.Window;
 import engine.math.Matrix4;
-import engine.math.Vector;
-import engine.math.Vector2;
-import engine.math.Vector3;
+import engine.math.vector.Vector;
+import engine.math.vector.Vector2;
+import engine.math.vector.Vector3;
+import engine.renderer.Default;
 import module.Color4;
+import module.buffer.ArrayVBO;
 import module.gui.GuiConfig;
 import module.gui.GuiObject;
 import module.gui.GuiShader;
+import module.shader.ArrayShader;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,6 +105,24 @@ public class Debug {
         rect.getVbo().render();
         config.disable();
         GuiShader.getInstance().unbind();
+
+        rect.cleanUp();
     }
+
+    public static void drawWire(Vector3[] positions, Color4 color) {
+        ArrayVBO vbo = new ArrayVBO(positions);
+        Default config = new Default();
+
+        ArrayShader.getInstance().bind();
+        config.enable();
+        ArrayShader.getInstance().updateUniforms(color);
+        vbo.render();
+        config.disable();
+        ArrayShader.getInstance().bind();
+
+        vbo.cleanUp();
+    }
+
+
 
 }

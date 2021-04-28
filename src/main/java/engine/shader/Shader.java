@@ -1,9 +1,9 @@
 package engine.shader;
 
 import engine.math.Matrix4;
-import engine.math.Vector2;
-import engine.math.Vector3;
-import engine.math.Vector4;
+import engine.math.vector.Vector2;
+import engine.math.vector.Vector3;
+import engine.math.vector.Vector4;
 import engine.scene.GameObject;
 import engine.util.BufferUtils;
 import engine.util.ResourceLoader;

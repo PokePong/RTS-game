@@ -1,8 +1,8 @@
 package engine.util;
 
 import engine.math.Matrix4;
-import engine.math.Vector3;
-import engine.math.Vector4;
+import engine.math.vector.Vector3;
+import engine.math.vector.Vector4;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;

@@ -1,6 +1,7 @@
-package engine.core;
+package engine.core.kernel;
 
-import engine.math.Vector2;
+import engine.core.Window;
+import engine.math.vector.Vector2;
 import org.lwjgl.glfw.*;
 
 import java.util.ArrayList;

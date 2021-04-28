@@ -1,7 +1,7 @@
 package module;
 
 
-import engine.math.Vector4;
+import engine.math.vector.Vector4;
 
 import java.nio.FloatBuffer;
 import java.util.Random;

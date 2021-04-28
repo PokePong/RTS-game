@@ -1,4 +1,8 @@
-package engine.core;
+package engine.core.kernel;
+
+import engine.core.Context;
+import engine.core.Timer;
+import engine.core.Window;
 
 /**
  * Engine founit l'objet principal du moteur de jeu.

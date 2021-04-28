@@ -6,6 +6,7 @@ import engine.scene.GameObject;
 import engine.util.Constants;
 import engine.util.Utils;
 import module.buffer.MeshVBO;
+import module.gui.GuiConfig;
 
 public class InfiniteGrid extends GameObject {
 
@@ -14,10 +15,8 @@ public class InfiniteGrid extends GameObject {
     public void __init__() {
         this.setVbo(new MeshVBO(Utils.generateQuad(2)));
 
-        Renderer renderer = new Renderer(InfiniteGridShader.getInstance(), new Default());
-        renderer.setParent(this);
-        renderer.init();
-        this.addComponent(Constants.RENDERER_COMPONENT, renderer);
+
+        this.addComponent(Constants.RENDERER_COMPONENT, new Renderer(InfiniteGridShader.getInstance(), new Default()));
     }
 
     @Override
