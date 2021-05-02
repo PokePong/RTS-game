@@ -5,6 +5,7 @@ import engine.renderer.Renderer;
 import engine.scene.Camera;
 import engine.scene.Component;
 import engine.util.Constants;
+import module.bounding.BoundingAAB;
 import module.camera.component.Frustum;
 import module.instanced.InstancedCluster;
 
@@ -16,7 +17,7 @@ public class FrustumCulling extends Component {
 
     public FrustumCulling() {
         super();
-        this.cull = true;
+        this.cull = false;
     }
 
     @Override
@@ -36,7 +37,8 @@ public class FrustumCulling extends Component {
     }
 
     private void processCulling() {
-        if (frustum.contains(transform.getTranslation())) {
+        BoundingBox aab = ((BoundingBox) getParent().getComponent(Constants.BOUNDING_BOX_COMPONENT));
+        if (frustum.contains(aab.getBoundingAAB())) {
             this.cull = false;
         } else {
             this.cull = true;

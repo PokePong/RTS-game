@@ -1,15 +1,22 @@
 package module.bounding;
 
 import engine.math.Transform;
+import engine.math.geometry.Plane;
 import engine.math.geometry.Ray;
 import engine.math.vector.Vector3;
 
 public abstract class BoundingVolume {
 
-    private Vector3 center;
+    public static enum Type {
+        AAB;
+    }
 
-    public BoundingVolume(Vector3 center) {
+    private Vector3 center;
+    private Type type;
+
+    public BoundingVolume(Vector3 center, Type type) {
         this.center = center;
+        this.type = type;
     }
 
     /**
@@ -29,6 +36,16 @@ public abstract class BoundingVolume {
      */
     public abstract void generateFromPoints(Vector3[] points);
 
+
+    /**
+     * <code>whichSide</code> returns the side on which the bounding volume
+     * lies on a plane. Possible values are POSITIVE, NEGATIVE, and
+     * NONE.
+     *
+     * @param plane the plane to check against this bounding volume.
+     * @return the side on which this bounding volume lies.
+     */
+    public abstract Plane.Side whichSide(Plane plane);
 
     /**
      * <code>distanceToEdge</code> finds the distance from the nearest edge of this Bounding Volume to the given
@@ -80,6 +97,14 @@ public abstract class BoundingVolume {
 
     public float distanceSquaredTo(Vector3 point) {
         return center.distanceSquared(point);
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Vector3 getCenter() {

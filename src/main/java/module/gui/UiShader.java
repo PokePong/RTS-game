@@ -3,18 +3,18 @@ package module.gui;
 import engine.scene.GameObject;
 import engine.shader.Shader;
 
-public class GuiShader extends Shader {
+public class UiShader extends Shader {
 
-    private static GuiShader instance;
+    private static UiShader instance;
 
-    public static GuiShader getInstance() {
+    public static UiShader getInstance() {
         if (instance == null)
-            instance = new GuiShader();
+            instance = new UiShader();
         return instance;
     }
 
-    public GuiShader() {
-        super("gui");
+    public UiShader() {
+        super("ui");
 
         addVertexShader();
         addFragmentShader();
@@ -22,6 +22,7 @@ public class GuiShader extends Shader {
 
         addUniform("m_Ortho");
         addUniform("color");
+        addUniform("textured");
     }
 
     @Override
@@ -29,8 +30,9 @@ public class GuiShader extends Shader {
 
     }
 
-    public void updateUniforms(GuiObject object) {
+    public void updateUniforms(UiObject object) {
         setUniform("m_Ortho", object.getTransform().getOrthographicMatrix());
         setUniform("color", object.getColor().toVector4());
+        setUniform("textured", object.getTexture() != null);
     }
 }

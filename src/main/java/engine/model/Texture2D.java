@@ -1,5 +1,6 @@
 package engine.model;
 
+import engine.util.Debug;
 import engine.util.ResourceLoader;
 import org.lwjgl.system.MemoryStack;
 
@@ -96,7 +97,7 @@ public class Texture2D {
     }
 
     public Texture2D allocateDepth() {
-        this.internalFormat = GL_DEPTH_COMPONENT32;
+        this.internalFormat = GL_DEPTH_COMPONENT32F;
         this.format = GL_DEPTH_COMPONENT;
         this.dataType = GL_FLOAT;
         allocate();
@@ -199,6 +200,7 @@ public class Texture2D {
             width = w.get();
             height = h.get();
         }
+        Debug.log("[Texture2D] Loading " + fileName);
         return createTexture(width, height, data);
     }
 

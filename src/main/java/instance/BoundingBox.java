@@ -3,8 +3,9 @@ package instance;
 import engine.core.kernel.Input;
 import engine.math.vector.Vector3;
 import engine.scene.Component;
+import engine.util.Constants;
 import engine.util.Debug;
-import module.Color4;
+import engine.util.Color4;
 import module.bounding.BoundingAAB;
 import org.lwjgl.glfw.GLFW;
 
@@ -34,7 +35,8 @@ public class BoundingBox extends Component {
 
     @Override
     public void render() {
-        if (Input.isKeyHold(GLFW.GLFW_KEY_B)) {
+        boolean isCull = ((FrustumCulling) getParent().getComponent(Constants.FRUSTUM_CULLING_COMPONENT)).isCull();
+        if (Input.isKeyHold(GLFW.GLFW_KEY_B) && !isCull) {
             Debug.drawWire(vertices, Color4.GREEN);
         }
     }

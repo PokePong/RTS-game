@@ -26,16 +26,20 @@ public class OrbitCamera implements CameraController {
     private Quaternion nRot;
     private Vector3 nZoom;
 
+
+    public OrbitCamera(Camera camera) {
+        this(camera, 30, -45);
+    }
+
     public OrbitCamera(Camera camera, float dist, float pitch) {
         this.camera = camera;
-        this.target = new Transform();
 
-        camera.setWorldTransform(target);
+        camera.setWorldTransform(new Transform());
         camera.getLocalTransform().translateTo(Vector3.FORWARD.mul(-dist));
         camera.getWorldTransform().rotateTo(pitch, 0, 0);
 
-        this.nPos = new Vector3(target.getTranslation());
-        this.nRot = new Quaternion(target.getRotation());
+        this.nPos = new Vector3(camera.getWorldTransform().getTranslation());
+        this.nRot = new Quaternion(camera.getWorldTransform().getRotation());
         this.nZoom = new Vector3(camera.getLocalTransform().getTranslation());
     }
 
@@ -57,28 +61,35 @@ public class OrbitCamera implements CameraController {
         Vector3 p2 = world.forward().project(Vector3.RIGHT);
         Vector3 forward = p1.add(p2).normalize();
 
-        if (Input.isKeyHold(GLFW.GLFW_KEY_W)) {
-            nPos = move(nPos, forward, moveAmount);
+        if (target == null) {
+            if (Input.isKeyHold(GLFW.GLFW_KEY_W)) {
+                nPos = move(nPos, forward, moveAmount);
+            }
+
+            if (Input.isKeyHold(GLFW.GLFW_KEY_S)) {
+                nPos = move(nPos, forward, -moveAmount);
+            }
+
+            if (Input.isKeyHold(GLFW.GLFW_KEY_A)) {
+                nPos = move(nPos, world.right(), -moveAmount);
+            }
+
+            if (Input.isKeyHold(GLFW.GLFW_KEY_D)) {
+                nPos = move(nPos, world.right(), moveAmount);
+            }
+
+            if (Input.isButtonHold(1)) {
+                float dx = Input.getDispVec().x * moveAmount;
+                float dy = Input.getDispVec().y * moveAmount;
+                nPos = move(nPos, world.right(), -dx);
+                nPos = move(nPos, forward, dy);
+            }
+        } else {
+            nPos = target.getTranslation();
+            if (Input.isKeyDown(GLFW.GLFW_KEY_L))
+                unlockTarget();
         }
 
-        if (Input.isKeyHold(GLFW.GLFW_KEY_S)) {
-            nPos = move(nPos, forward, -moveAmount);
-        }
-
-        if (Input.isKeyHold(GLFW.GLFW_KEY_A)) {
-            nPos = move(nPos, world.right(), -moveAmount);
-        }
-
-        if (Input.isKeyHold(GLFW.GLFW_KEY_D)) {
-            nPos = move(nPos, world.right(), moveAmount);
-        }
-
-        if (Input.isButtonHold(1)) {
-            float dx = Input.getDispVec().x * moveAmount;
-            float dy = Input.getDispVec().y * moveAmount;
-            nPos = move(nPos, world.right(), -dx);
-            nPos = move(nPos, forward, dy);
-        }
 
         if (Input.isButtonHold(2)) {
             float rotX = Input.getDispVec().x * -rotateAmount;
@@ -86,7 +97,7 @@ public class OrbitCamera implements CameraController {
             nRot = rotate(nRot, rotX, rotY);
         }
 
-        if(Input.getScrollOffSet() != 0) {
+        if (Input.getScrollOffSet() != 0) {
             float zoom = Input.getScrollOffSet() * zoomAmount;
             nZoom = move(nZoom, local.forward(), zoom);
         }
@@ -104,5 +115,13 @@ public class OrbitCamera implements CameraController {
         Quaternion qx = Quaternion.eulerAxis(amountX, Vector3.UP);
         Quaternion qy = Quaternion.eulerAxis(amountY, Vector3.RIGHT);
         return qx.mul(nRot).mul(qy);
+    }
+
+    public void lockTarget(Transform transform) {
+        this.target = transform;
+    }
+
+    public void unlockTarget() {
+        this.target = null;
     }
 }

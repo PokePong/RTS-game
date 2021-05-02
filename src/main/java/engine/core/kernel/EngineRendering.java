@@ -1,27 +1,40 @@
 package engine.core.kernel;
 
+import engine.core.Context;
 import engine.renderer.Default;
 
 
-public class EngineRendering {
+public abstract class EngineRendering {
 
-    private EngineSystem engineSystem;
+    public Context context;
 
-    public EngineRendering(EngineSystem engineSystem) {
-        this.engineSystem = engineSystem;
+    public EngineRendering(Context context) {
+        this.context = context;
     }
 
-    public void init() {
+    protected void init() {
         Default.init();
+        clearScene();
+        __init__();
     }
 
-    public void render() {
+    protected void render() {
+        clearScene();
+        __render__();
+    }
+
+    protected void cleanUp() {
+        __cleanUp__();
+    }
+
+    public abstract void __init__();
+
+    public abstract void __render__();
+
+    public abstract void __cleanUp__();
+
+    public void clearScene() {
         Default.clearScreen();
-        engineSystem.getContext().getScenegraph().render();
-    }
-
-    public void cleanUp() {
-
     }
 
 }

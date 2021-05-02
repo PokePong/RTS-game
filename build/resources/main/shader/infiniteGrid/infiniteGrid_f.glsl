@@ -1,12 +1,17 @@
 #version 430 core
 
 layout (location = 0) out vec4 out_Albedo;
+layout (location = 1) out vec4 out_Position;
+layout (location = 2) out vec4 out_Normal;
 
 in vec3 nearPoint;
 in vec3 farPoint;
 in vec3 pos;
 in mat4 proj;
 in mat4 view;
+
+float near = 0.1;
+float far  = 100;
 
 vec4 grid(vec3 fragPos, float scale, float intensity) {
     vec2 coord = fragPos.xz * 1 / scale;
@@ -42,12 +47,9 @@ float computeDepth(vec3 pos) {
     return clip_space_pos.z / clip_space_pos.w;
 }
 
-float computeLinearDepth(vec3 pos) {
-    float near = 0.1;
-    float far = 50;
+float linearizeDepth(vec3 pos) {
     float depth = computeDepth(pos) * 2.0 - 1.0;
-    float linearDepth = (2.0 * near * far) / (far + near - depth * (far - near));
-    return linearDepth / far;
+    return (2.0 * near * far) / (far + near - depth * (far - near)) / far;
 }
 
 void main(void) {
@@ -56,7 +58,7 @@ void main(void) {
     vec3 R = nearPoint + t * (farPoint - nearPoint);
 
     float depth = computeDepth(R);
-    float linearDepth = computeLinearDepth(R);
+    float linearDepth = linearizeDepth(R);
     float fading = max(0, (0.5 - linearDepth));
 
     gl_FragDepth = (depth + 1) / 2;
@@ -64,5 +66,8 @@ void main(void) {
     out_Albedo = grid(R, 1, 1) + grid(R, 10, 3);
     out_Albedo = out_Albedo * float(t > 0);
     out_Albedo.a *= fading;
+
+    out_Position = vec4(0.0);
+    out_Normal = vec4(0.0);
 
 }

@@ -1,4 +1,4 @@
-package module.infiniteGrid;
+package instance.infiniteGrid;
 
 import engine.scene.GameObject;
 import engine.shader.Shader;

@@ -7,7 +7,7 @@ import engine.renderer.Default;
 import engine.renderer.Renderer;
 import engine.scene.GameObject;
 import engine.util.Constants;
-import module.Color4;
+import engine.util.Color4;
 import module.buffer.MeshVBO;
 import module.shader.GenericShader;
 

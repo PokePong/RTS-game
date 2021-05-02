@@ -30,7 +30,7 @@ public class Camera extends GameObject {
 
     private FloatBuffer buffer;
     private BlockUBO ubo;
-    private final int bufferSize = Float.BYTES * 2 * (4 * 4);
+    private final int bufferSize = Float.BYTES * (2 * (4 * 4) + 4);
 
     private CameraController controller;
 
@@ -119,6 +119,8 @@ public class Camera extends GameObject {
         this.buffer.clear();
         this.projectionMatrix.fillFloatBuffer(buffer);
         this.viewMatrix.fillFloatBuffer(buffer);
+        position().fillFloatBuffer(buffer);
+        buffer.put(0);
         this.ubo.updateData(buffer, bufferSize);
     }
 

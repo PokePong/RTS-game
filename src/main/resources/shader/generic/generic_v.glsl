@@ -6,6 +6,7 @@ layout(location = 1) in vec3 in_Normal;
 layout (std140) uniform Camera {
     mat4 c_Projection;
     mat4 c_View;
+    vec4 c_Eye;
 };
 
 out vec3 f_Position;

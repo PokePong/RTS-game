@@ -5,18 +5,20 @@ import engine.math.Matrix4;
 import engine.math.vector.Vector;
 import engine.math.vector.Vector2;
 import engine.math.vector.Vector3;
+import engine.model.Texture2D;
 import engine.renderer.Default;
-import module.Color4;
 import module.buffer.ArrayVBO;
-import module.gui.GuiConfig;
-import module.gui.GuiObject;
-import module.gui.GuiShader;
+import module.gui.UiObject;
+import module.gui.UiShader;
 import module.shader.ArrayShader;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Debug {
+
+    private static ArrayVBO arrayVBO;
+    private static Default config = new Default();
 
     enum Level {
         FATAL,
@@ -77,8 +79,7 @@ public class Debug {
 
 
     public static void drawRectScreen(Vector2 p1, Vector2 p2, Color4 color) {
-        GuiConfig config = new GuiConfig();
-        GuiObject rect = new GuiObject();
+        UiObject rect = new UiObject();
 
         rect.setColor(color);
         rect.getTransform().translateTo(p1.x, Window.height - p1.y, 0);
@@ -99,28 +100,28 @@ public class Debug {
             rect.getTransform().scaleTo(Math.abs(height), Math.abs(width), 0);
         }
 
-        GuiShader.getInstance().bind();
+        UiShader.getInstance().bind();
         config.enable();
-        GuiShader.getInstance().updateUniforms(rect);
-        rect.getVbo().render();
+        UiShader.getInstance().updateUniforms(rect);
+        rect.render();
         config.disable();
-        GuiShader.getInstance().unbind();
+        UiShader.getInstance().unbind();
 
         rect.cleanUp();
     }
 
     public static void drawWire(Vector3[] positions, Color4 color) {
-        ArrayVBO vbo = new ArrayVBO(positions);
-        Default config = new Default();
-
+        if(arrayVBO == null) {
+            arrayVBO = new ArrayVBO(positions);
+        } else {
+            arrayVBO.addData(positions);
+        }
         ArrayShader.getInstance().bind();
         config.enable();
         ArrayShader.getInstance().updateUniforms(color);
-        vbo.render();
+        arrayVBO.render();
         config.disable();
         ArrayShader.getInstance().bind();
-
-        vbo.cleanUp();
     }
 
 

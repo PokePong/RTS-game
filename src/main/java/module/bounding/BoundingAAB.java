@@ -3,8 +3,10 @@ package module.bounding;
 import engine.math.FastMath;
 import engine.math.Matrix4;
 import engine.math.Transform;
+import engine.math.geometry.Plane;
 import engine.math.geometry.Ray;
 import engine.math.vector.Vector3;
+import engine.util.Debug;
 
 /**
  * <code>BoundingBox</code> describes a bounding volume as an axis-aligned bounding box (AABB).
@@ -22,7 +24,7 @@ public class BoundingAAB extends BoundingVolume {
     }
 
     public BoundingAAB(Vector3 center, float x, float y, float z) {
-        super(center);
+        super(center, Type.AAB);
         this.xExtent = x;
         this.yExtent = y;
         this.zExtent = z;
@@ -101,13 +103,47 @@ public class BoundingAAB extends BoundingVolume {
     }
 
     @Override
+    public Plane.Side whichSide(Plane plane) {
+        float radius = FastMath.abs(xExtent * plane.getNormal().getX())
+                + FastMath.abs(yExtent * plane.getNormal().getY())
+                + FastMath.abs(zExtent * plane.getNormal().getZ());
+        float distance = plane.getDistanceToPoint(getCenter());
+
+        if (distance < -radius) {
+            return Plane.Side.NEGATIVE;
+        } else if (distance > radius) {
+            return Plane.Side.POSITIVE;
+        } else {
+            return Plane.Side.NONE;
+        }
+    }
+
+    @Override
     public float distanceToEdge(Vector3 point) {
         return 0;
     }
 
-    @Override
     public boolean intersects(BoundingVolume bv) {
+        switch (bv.getType()) {
+            case AAB:
+                return intersectsBoundingBox((BoundingAAB) bv);
+        }
         return false;
+    }
+
+    public boolean intersectsBoundingBox(BoundingAAB bb) {
+        if (getCenter().x + xExtent < bb.getCenter().x - bb.xExtent
+                || getCenter().x - xExtent > bb.getCenter().x + bb.xExtent) {
+            return false;
+        } else if (getCenter().y + yExtent < bb.getCenter().y - bb.yExtent
+                || getCenter().y - yExtent > bb.getCenter().y + bb.yExtent) {
+            return false;
+        } else if (getCenter().z + zExtent < bb.getCenter().z - bb.zExtent
+                || getCenter().z - zExtent > bb.getCenter().z + bb.zExtent) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

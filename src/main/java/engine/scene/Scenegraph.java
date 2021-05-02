@@ -20,6 +20,7 @@ public class Scenegraph extends Node {
         root.init();
     }
 
+    @Override
     public void render() {
         root.render();
         camera.render();

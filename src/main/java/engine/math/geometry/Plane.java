@@ -1,9 +1,16 @@
 package engine.math.geometry;
 
+import engine.math.FastMath;
 import engine.math.vector.Vector3;
 import engine.util.Utils;
 
 public class Plane {
+
+    public static enum Side {
+        POSITIVE,
+        NEGATIVE,
+        NONE;
+    }
 
     private Vector3 normal;
     private float constant;
@@ -64,6 +71,26 @@ public class Plane {
             return 0.0f;
         }
         return ndot / vdot;
+    }
+
+    public Side whichSide(Vector3 point) {
+        if (isOnPlane(point))
+            return Side.NONE;
+        float dist = getDistanceToPoint(point);
+        if (dist > 0) {
+            return Side.POSITIVE;
+        } else {
+            return Side.NEGATIVE;
+        }
+    }
+
+    public boolean isOnPlane(Vector3 point) {
+        float dist = getDistanceToPoint(point);
+        if (dist < FastMath.FLT_EPSILON && dist > -FastMath.FLT_EPSILON) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Vector3 getNormal() {

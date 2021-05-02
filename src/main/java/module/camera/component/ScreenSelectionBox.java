@@ -4,7 +4,7 @@ import engine.core.kernel.Input;
 import engine.math.vector.Vector2;
 import engine.scene.Component;
 import engine.util.Debug;
-import module.Color4;
+import engine.util.Color4;
 
 public class ScreenSelectionBox extends Component {
 

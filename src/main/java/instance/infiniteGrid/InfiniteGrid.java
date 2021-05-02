@@ -1,4 +1,4 @@
-package module.infiniteGrid;
+package instance.infiniteGrid;
 
 import engine.renderer.Default;
 import engine.renderer.Renderer;
@@ -6,7 +6,6 @@ import engine.scene.GameObject;
 import engine.util.Constants;
 import engine.util.Utils;
 import module.buffer.MeshVBO;
-import module.gui.GuiConfig;
 
 public class InfiniteGrid extends GameObject {
 

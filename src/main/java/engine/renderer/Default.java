@@ -32,7 +32,7 @@ public class Default implements RenderConfig {
     }
 
     public static void clearScreen() {
-        glClearColor(0 / 255f, 0 / 255f, 0 / 255f, 1f);
+        glClearColor(255 / 255f, 255 / 255f, 255 / 255f, 1f);
         glClearDepth(1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }

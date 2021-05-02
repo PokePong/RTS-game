@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-public class GuiVBO implements VBO {
+public class UiVBO implements VBO {
 
     public int vaoId;
     public int vboId;
@@ -19,7 +19,7 @@ public class GuiVBO implements VBO {
 
     private float[] positions = {0f, 1f, 1f, 1f, 0f, 0f, 1f, 0};
 
-    public GuiVBO() {
+    public UiVBO() {
         this.vaoId = glGenVertexArrays();
         this.vboId = glGenBuffers();
         this.size = positions.length / 2;

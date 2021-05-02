@@ -6,7 +6,7 @@ import engine.renderer.Default;
 import engine.renderer.Renderer;
 import engine.scene.GameObject;
 import engine.util.Constants;
-import module.Color4;
+import engine.util.Color4;
 import module.buffer.MeshVBO;
 import module.shader.GenericShader;
 
@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class People extends GameObject {
 
-    private int terrainSize = 300;
+    private int terrainSize = 200;
     private float moveSpeed = 3f;
 
     public People(Color4 color) {

@@ -3,6 +3,7 @@ package engine.core.kernel;
 import engine.core.Context;
 import engine.core.Window;
 import engine.util.Debug;
+import module.deferred.DeferredRendering;
 import org.lwjgl.Version;
 import org.lwjgl.opengl.GL11;
 
@@ -16,10 +17,10 @@ public class EngineSystem {
 
     protected EngineSystem(Engine engine) {
         this.engine = engine;
-        this.engineRendering = new EngineRendering(this);
     }
 
     protected void init() {
+        this.engineRendering = new DeferredRendering(context);
         glfwWindowSizeCallback();
         displayGameSettings();
         Input.init(Window.getWindow());
@@ -38,6 +39,7 @@ public class EngineSystem {
 
     protected void cleanUp() {
         context.cleanUp();
+        engineRendering.cleanUp();
         Input.cleanUp();
     }
 

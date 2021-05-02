@@ -3,7 +3,7 @@ package module.shader;
 import engine.scene.GameObject;
 import engine.shader.Shader;
 import engine.util.Constants;
-import module.Color4;
+import engine.util.Color4;
 
 public class ArrayShader extends Shader {
 

@@ -3,6 +3,7 @@ package engine.core.kernel;
 import engine.core.Context;
 import engine.core.Timer;
 import engine.core.Window;
+import org.lwjgl.glfw.GLFW;
 
 /**
  * Engine founit l'objet principal du moteur de jeu.
@@ -127,8 +128,11 @@ public class Engine {
                     frameCounter = 0;
                 }
             }
+            // V-SYNC true
+            GLFW.glfwSwapInterval(1);
             render();
-            sync();
+            // V-SYNC false
+            //sync();
             frames++;
         }
         stop();

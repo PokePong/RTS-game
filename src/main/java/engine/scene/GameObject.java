@@ -4,7 +4,7 @@ import engine.gl.VBO;
 import engine.model.Mesh;
 import engine.util.Constants;
 import engine.util.Debug;
-import module.Color4;
+import engine.util.Color4;
 
 import java.util.HashMap;
 import java.util.UUID;

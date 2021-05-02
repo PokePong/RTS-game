@@ -23,8 +23,8 @@ public class Picking extends Component {
         if (Input.isButtonDown(0)) {
             Ray ray = camera.getRay(Input.getCursorPosition());
             Plane plane = new Plane(new Vector3(0, 1, 0), 0);
-            float entry = plane.rayCast(ray);
-            pointOnPlane = ray.getPoint(entry);
+            float dist = plane.rayCast(ray);
+            pointOnPlane = ray.getPoint(dist);
             Debug.log("Picking:" + pointOnPlane);
         }
     }

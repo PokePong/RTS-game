@@ -6,14 +6,11 @@ import engine.core.Window;
 import engine.math.FastMath;
 import engine.math.geometry.Plane;
 import engine.math.vector.Vector3;
-import engine.renderer.Default;
-import engine.renderer.RenderConfig;
 import engine.scene.Camera;
 import engine.scene.Component;
 import engine.util.Debug;
-import module.Color4;
-import module.buffer.ArrayVBO;
-import module.shader.ArrayShader;
+import engine.util.Color4;
+import module.bounding.BoundingAAB;
 import org.lwjgl.glfw.GLFW;
 
 public class Frustum extends Component {
@@ -88,7 +85,7 @@ public class Frustum extends Component {
 
         planes[0] = new Plane(na, nb, nc); // near
         planes[1] = new Plane(fb, fa, fd); // far
-        planes[2] = new Plane(na, position, nc); // left
+        planes[2] = new Plane(position, nc, na); // left
         planes[3] = new Plane(position, nb, nd); // right
         planes[4] = new Plane(position, na, nb); // top
         planes[5] = new Plane(position, nd, nc); // bottom
@@ -128,8 +125,7 @@ public class Frustum extends Component {
     }
 
     private Vector3 getCorner(Vector3 center, float HH, float HW, Vector3 up, Vector3 right) {
-        Vector3 ret = center.add(up.mul(HH)).add(right.mul(HW));
-        return ret;
+        return center.add(up.mul(HH)).add(right.mul(HW));
     }
 
     private Vector3 processPoint(Vector3 point, float distance) {
@@ -138,15 +134,31 @@ public class Frustum extends Component {
     }
 
     private boolean contains(Plane plane, Vector3 point) {
-        if (plane.getDistanceToPoint(point) < 0)
-            return false;
-        return true;
+        if (plane.getDistanceToPoint(point) > 0)
+            return true;
+        return false;
     }
 
     public boolean contains(Vector3 point) {
         for (int i = 0; i < 6; i++) {
             if (!contains(planes[i], point)) {
                 return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean contains(BoundingAAB aab) {
+        Plane plane;
+        for (int i = 0; i < 6; i++) {
+            Plane.Side side = aab.whichSide(planes[i]);
+            switch (side) {
+                case NEGATIVE:
+                    return false;
+                case POSITIVE:
+                    break;
+                case NONE:
+                    break;
             }
         }
         return true;

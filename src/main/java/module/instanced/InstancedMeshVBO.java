@@ -2,9 +2,8 @@ package module.instanced;
 
 import engine.model.Mesh;
 import engine.scene.GameObject;
-import engine.scene.Node;
 import engine.util.BufferUtils;
-import module.Color4;
+import engine.util.Color4;
 import module.buffer.MeshVBO;
 import org.lwjgl.system.MemoryUtil;
 
