@@ -126,12 +126,12 @@ public class BoundingAAB extends BoundingVolume {
     public boolean intersects(BoundingVolume bv) {
         switch (bv.getType()) {
             case AAB:
-                return intersectsBoundingBox((BoundingAAB) bv);
+                return intersectsBoundingAAB((BoundingAAB) bv);
         }
         return false;
     }
 
-    public boolean intersectsBoundingBox(BoundingAAB bb) {
+    public boolean intersectsBoundingAAB(BoundingAAB bb) {
         if (getCenter().x + xExtent < bb.getCenter().x - bb.xExtent
                 || getCenter().x - xExtent > bb.getCenter().x + bb.xExtent) {
             return false;
@@ -153,7 +153,16 @@ public class BoundingAAB extends BoundingVolume {
 
     @Override
     public boolean contains(Vector3 point) {
-        return false;
+        return FastMath.abs(getCenter().x - point.x) < xExtent
+                && FastMath.abs(getCenter().y - point.y) < yExtent
+                && FastMath.abs(getCenter().z - point.z) < zExtent;
+    }
+
+    @Override
+    public boolean intersects(Vector3 point) {
+        return FastMath.abs(getCenter().x - point.x) <= xExtent
+                && FastMath.abs(getCenter().y - point.y) <= yExtent
+                && FastMath.abs(getCenter().z - point.z) <= zExtent;
     }
 
     @Override

@@ -105,7 +105,6 @@ void main() {
     }
 
     vec4 pixel = vec4(res, 1.0);
-    //vec4 pixel = vec4(depthNormalLoad(coords), 1.0);
     imageStore(img_Output, coords, pixel);
 
 }

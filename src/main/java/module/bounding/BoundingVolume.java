@@ -85,6 +85,14 @@ public abstract class BoundingVolume {
     public abstract boolean contains(Vector3 point);
 
     /**
+     * Determines if a point intersects this bounding volume.
+     *
+     * @param point the point to check
+     * @return true if this volume is intersected by a given point.
+     */
+    public abstract boolean intersects(Vector3 point);
+
+    /**
      * Get volume of the bounding volume
      *
      * @return the volume
