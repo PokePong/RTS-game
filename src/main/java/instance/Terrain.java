@@ -25,12 +25,10 @@ public class Terrain extends GameObject {
         Mesh mesh = createTerrainMesh();
         setVbo(new MeshVBO(mesh));
 
-        getWorldTransform().translateTo(-size / 2, 0.01f, -size / 2);
+        getLocalTransform().translateTo(-size / 2, 0, -size / 2);
+        getWorldTransform().rotateTo(0, 90, 0);
 
-        Renderer renderer = new Renderer(GenericShader.getInstance(), new Default());
-        renderer.setParent(this);
-        renderer.init();
-        getComponents().put(Constants.RENDERER_COMPONENT, renderer);
+        addComponent(Constants.RENDERER_COMPONENT, new Renderer(GenericShader.getInstance(), new Default()));
     }
 
     @Override
@@ -43,7 +41,7 @@ public class Terrain extends GameObject {
         int count = 0;
         for (int z = 0; z < size; z++) {
             for (int x = 0; x < size; x++) {
-                vertices[count++] = new Vertex(new Vector3(x, 0, z));
+                vertices[count++] = new Vertex(new Vector3(x, 0, z), Vector3.UP);
             }
         }
         int[] indices = new int[6 * (size - 1) * (size - 1)];

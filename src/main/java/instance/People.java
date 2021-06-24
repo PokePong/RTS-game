@@ -18,19 +18,19 @@ public class People extends GameObject {
     private float moveSpeed = 3f;
 
     public People(Color4 color) {
+        super();
         setColor(color);
     }
 
     @Override
     public void __init__() {
-        setMesh(Mesh.CUBE);
         setVbo(new MeshVBO(getMesh()));
 
         getLocalTransform().translateTo(-0.5f, 0, -0.5f);
         getWorldTransform().rotateTo(0, new Random().nextInt(360), 0);
 
-        int x = new Random().nextInt(terrainSize) - terrainSize/2;
-        int z = new Random().nextInt(terrainSize) - terrainSize/2;
+        int x = new Random().nextInt(terrainSize) - terrainSize / 2;
+        int z = new Random().nextInt(terrainSize) - terrainSize / 2;
         getWorldTransform().translateTo(x, 0, z);
 
         addComponent(Constants.BOUNDING_BOX_COMPONENT, new BoundingBox());

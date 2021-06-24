@@ -36,10 +36,11 @@ public abstract class InstancedCluster extends GameObject {
 
     public void addInstance() {
         GameObject object = createNewInstance();
+        addChild(object);
         object.setInstanced(true);
+        object.setMesh(getMesh());
         object.init();
         object.removeComponent(Constants.RENDERER_COMPONENT);
-        addChild(object);
     }
 
     private void uploadInstancesData() {

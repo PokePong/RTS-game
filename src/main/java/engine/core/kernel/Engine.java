@@ -16,7 +16,7 @@ import org.lwjgl.glfw.GLFW;
 public class Engine {
 
     /**
-     * Savoir si le moteur tourne.
+     * Indique si le moteur est activé.
      */
     private boolean running;
 
@@ -60,7 +60,7 @@ public class Engine {
     }
 
     /**
-     * Permet de lancer le moteur.
+     * Lancer le moteur.
      */
     public void start() {
         if (running)
@@ -78,7 +78,7 @@ public class Engine {
     }
 
     /**
-     * Permet de stoper le moteur.
+     * Stoper le moteur.
      */
     public void stop() {
         if (!running)
@@ -97,7 +97,7 @@ public class Engine {
     }
 
     /**
-     * Boucle principale.
+     * Boucle principale
      */
     private void run() {
         double delta;
@@ -155,6 +155,7 @@ public class Engine {
 
     /**
      * Méthode d'update.
+     *
      * @param delta interval de temps
      */
     private void update(double delta) {
@@ -179,9 +180,19 @@ public class Engine {
 
     /**
      * Retourne la configuration
+     *
      * @return l'objet de la configuration EngineConfig
      */
     public EngineConfig getConfig() {
         return config;
+    }
+
+    /**
+     * Récupérer le contexte
+     *
+     * @return le context
+     */
+    public Context getContext() {
+        return engineSystem.getContext();
     }
 }

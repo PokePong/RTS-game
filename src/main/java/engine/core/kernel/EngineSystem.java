@@ -20,6 +20,9 @@ public class EngineSystem {
     }
 
     protected void init() {
+        if(context == null) {
+            Debug.fatal("[Engine] No context! Cannot launch the game!");
+        }
         this.engineRendering = new DeferredRendering(context);
         glfwWindowSizeCallback();
         displayGameSettings();
@@ -66,7 +69,11 @@ public class EngineSystem {
         return context;
     }
 
-    public void setContext(Context context) {
+    protected void setContext(Context context) {
         this.context = context;
+    }
+
+    protected void setEngineRendering(EngineRendering engineRendering) {
+        this.engineRendering = engineRendering;
     }
 }

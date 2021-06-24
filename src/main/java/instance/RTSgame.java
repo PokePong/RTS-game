@@ -8,12 +8,11 @@ import module.camera.component.Frustum;
 import module.camera.component.Picking;
 import module.camera.controller.OrbitCamera;
 import module.camera.component.ScreenSelectionBox;
-import instance.infiniteGrid.InfiniteGrid;
 
 
 public class RTSgame extends Context {
 
-    int numPeople = 500;
+    int numPeople = 50;
 
     @Override
     public void __init__() {
@@ -29,7 +28,7 @@ public class RTSgame extends Context {
 
         getScenegraph().getRoot().addChild(new PeopleCluster(numPeople));
         getScenegraph().getRoot().addChild(new Rat(Color4.ORANGE));
-        getScenegraph().getRoot().addChild(new InfiniteGrid());
+        //getScenegraph().getRoot().addChild(new Terrain(200, Color4.GREEN.brighter()));
     }
 
     @Override

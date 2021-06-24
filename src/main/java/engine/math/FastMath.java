@@ -529,6 +529,13 @@ public class FastMath {
         return (float) (1.0f / Math.sqrt(fValue));
     }
 
+    /**
+     * Returns 1/sqrt(fValue) but quick process with Newton step
+     *
+     * @param x The value to process.
+     * @return 1/sqrt(fValue)
+     * @see java.lang.Math#sqrt(double)
+     */
     public static float fastInvSqrt(float x) {
         float xhalf = 0.5f * x;
         int i = Float.floatToIntBits(x); // get bits for floating value

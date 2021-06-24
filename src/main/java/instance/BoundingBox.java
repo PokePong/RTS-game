@@ -7,6 +7,7 @@ import engine.util.Constants;
 import engine.util.Debug;
 import engine.util.Color4;
 import module.bounding.BoundingAAB;
+import module.instanced.InstancedCluster;
 import org.lwjgl.glfw.GLFW;
 
 public class BoundingBox extends Component {
@@ -22,7 +23,12 @@ public class BoundingBox extends Component {
 
     @Override
     public void init() {
-        this.aabLocal = (BoundingAAB) getParent().getMesh().getBoundingVolume().transform(getLocalTransform());
+        if (!getParent().isInstanced()) {
+            this.aabLocal = (BoundingAAB) getParent().getMesh().getBoundingVolume().transform(getLocalTransform());
+        } else {
+            this.aabLocal = (BoundingAAB) getParent().getMesh().getBoundingVolume().transform(getParent().getParent().getLocalTransform());
+        }
+
         this.boundingAAB = (BoundingAAB) aabLocal.transform(getWorldTransform());
         updateVertices();
     }

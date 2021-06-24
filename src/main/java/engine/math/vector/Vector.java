@@ -130,6 +130,11 @@ public abstract class Vector<ResultType extends Vector<ResultType>> {
         return mul(v.inverse());
     }
 
+    /**
+     * <code>fillFloatBuffer</code> fill a buffer with this vector values
+     *
+     * @param buffer the buffer to fill
+     */
     public final void fillFloatBuffer(FloatBuffer buffer) {
         buffer.put(toArray());
     }
@@ -146,6 +151,12 @@ public abstract class Vector<ResultType extends Vector<ResultType>> {
         return mul(scalar).add(add);
     }
 
+    /**
+     * <code>project</code> projects this vector on other
+     *
+     * @param other the other vecteur
+     * @return projection result
+     */
     public final ResultType project(ResultType other) {
         float n = this.dot(other); // A . B
         float d = other.lengthSquared(); // |B|^2
@@ -153,6 +164,12 @@ public abstract class Vector<ResultType extends Vector<ResultType>> {
     }
 
 
+    /**
+     * Add a vector to this vector
+     *
+     * @param v
+     * @return
+     */
     public final ResultType add(ResultType v) {
         float[] a = toArray();
         float[] b = v.toArray();
@@ -162,6 +179,12 @@ public abstract class Vector<ResultType extends Vector<ResultType>> {
         return build(a);
     }
 
+    /**
+     * Add a scalar to this vector
+     *
+     * @param s
+     * @return
+     */
     public final ResultType add(float s) {
         float[] a = toArray();
         for (int i = 0; i < a.length; ++i) {
