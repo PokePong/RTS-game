@@ -2,6 +2,8 @@ package engine.core;
 
 import engine.math.Matrix4;
 import engine.util.Debug;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -10,6 +12,8 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 public class Window {
+
+    private static final Logger logger = LogManager.getLogger(Window.class);
 
     public static int width;
     public static int height;
@@ -23,7 +27,7 @@ public class Window {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
-            Debug.fatal("[GLFW] Unable to initialize GLFW!");
+            logger.fatal("[GLFW] Unable to initialize GLFW!");
             throw new RuntimeException();
         }
 
@@ -35,7 +39,7 @@ public class Window {
 
         window = glfwCreateWindow(width, height, title, 0, 0);
         if (window == 0) {
-            Debug.fatal("[GLFW] Failed to create window!");
+            logger.fatal("[GLFW] Failed to create window!");
             throw new RuntimeException();
         }
 

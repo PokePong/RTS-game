@@ -24,4 +24,7 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
+
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.2'
 }

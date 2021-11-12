@@ -3,6 +3,9 @@ package engine.util;
 import engine.math.vector.Vector3;
 import engine.model.Mesh;
 import engine.model.Vertex;
+import engine.scene.GameObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.util.Map;
 
 
 public class OBJLoader {
+
+    private static final Logger logger = LogManager.getLogger(OBJLoader.class);
 
     public static Mesh loadMesh(String dir, String fileName) {
         long time = System.nanoTime();
@@ -122,7 +127,7 @@ public class OBJLoader {
 
 
         long delta = (System.nanoTime() - time) / 1000000;
-        Debug.info("[OBJ] Loading " + fileName + ": " + delta + "ms");
+        logger.info("[OBJ] Loading " + fileName + ": " + delta + "ms");
         return new Mesh(verticesArray, indicesArray);
     }
 

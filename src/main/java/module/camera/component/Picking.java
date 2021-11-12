@@ -6,9 +6,12 @@ import engine.math.geometry.Ray;
 import engine.math.vector.Vector3;
 import engine.scene.Camera;
 import engine.scene.Component;
-import engine.util.Debug;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Picking extends Component {
+
+    private static final Logger logger = LogManager.getLogger(Picking.class);
 
     private Camera camera;
     private Vector3 pointOnPlane;
@@ -25,7 +28,7 @@ public class Picking extends Component {
             Plane plane = new Plane(new Vector3(0, 1, 0), 0);
             float dist = plane.rayCast(ray);
             pointOnPlane = ray.getPoint(dist);
-            Debug.log("Picking:" + pointOnPlane);
+            logger.debug("Picking:" + pointOnPlane);
         }
     }
 

@@ -1,8 +1,12 @@
 package engine.scene;
 
 import engine.util.Debug;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Scenegraph extends Node {
+
+    private static final Logger logger = LogManager.getLogger(Scenegraph.class);
 
     private Camera camera;
     private Node root;
@@ -13,7 +17,7 @@ public class Scenegraph extends Node {
 
     public void init() {
         if (camera == null) {
-            Debug.fatal("[Scenegraph] Camera is null!");
+            logger.fatal("[Scenegraph] Camera is null!");
             throw new IllegalStateException();
         }
         camera.init();

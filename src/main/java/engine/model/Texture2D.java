@@ -2,6 +2,8 @@ package engine.model;
 
 import engine.util.Debug;
 import engine.util.ResourceLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
@@ -12,6 +14,8 @@ import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class Texture2D {
+
+    private static final Logger logger = LogManager.getLogger(Texture2D.class);
 
     private int id;
 
@@ -200,7 +204,7 @@ public class Texture2D {
             width = w.get();
             height = h.get();
         }
-        Debug.log("[Texture2D] Loading " + fileName);
+        logger.info("[Texture2D] Loading " + fileName);
         return createTexture(width, height, data);
     }
 

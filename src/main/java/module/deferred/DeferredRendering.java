@@ -7,9 +7,12 @@ import engine.gl.FrameBuffer;
 import engine.model.Texture2D;
 import engine.util.BufferUtils;
 import engine.util.Debug;
+import module.camera.component.Picking;
 import module.gui.UiConfig;
 import module.gui.UiObject;
 import module.gui.UiShader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
@@ -17,6 +20,8 @@ import static org.lwjgl.opengl.GL30.*;
 
 
 public class DeferredRendering extends EngineRendering {
+
+    private static final Logger logger = LogManager.getLogger(DeferredRendering.class);
 
     private FrameBuffer fbo;
     private GBuffer gbuffer;
@@ -54,7 +59,7 @@ public class DeferredRendering extends EngineRendering {
         fbo.setDrawBuffers(BufferUtils.createFlippedBuffer(GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3));
         fbo.checkStatus();
         fbo.unbind();
-        Debug.log("[DeferredRendering] Successful FBO created");
+        logger.debug("[DeferredRendering] Successful FBO created");
 
         uiConfig = new UiConfig();
         ui = new UiObject();
@@ -62,7 +67,7 @@ public class DeferredRendering extends EngineRendering {
         ui.getTransform().translateTo(0, 0, 0);
         ui.getTransform().scaleTo(Window.width, Window.height, 0);
 
-        Debug.info("[DeferredRendering] Enable");
+        logger.info("[DeferredRendering] Enable");
     }
 
     @Override

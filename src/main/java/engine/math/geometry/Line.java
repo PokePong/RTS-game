@@ -2,7 +2,6 @@ package engine.math.geometry;
 
 import engine.math.FastMath;
 import engine.math.vector.Vector3;
-import org.joml.Vector3f;
 
 /**
  * Line définit une droite. Une droite a une longueur infinie le long de deux points.

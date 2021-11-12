@@ -20,64 +20,6 @@ public class Debug {
     private static ArrayVBO arrayVBO;
     private static Default config = new Default();
 
-    enum Level {
-        FATAL,
-        ERROR,
-        WARNING,
-        INFO,
-        DEBUG
-    }
-
-    private static void print(Level level, String message) {
-        StringBuilder builder = new StringBuilder();
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss,SSS");
-        builder.append(formatter.format(new Date()) + ": ");
-        builder.append("[" + level.toString() + "] ");
-        builder.append(message);
-        System.out.println(builder.toString());
-    }
-
-    public static void fatal(String message) {
-        print(Level.FATAL, message);
-    }
-
-    public static void err(String message) {
-        print(Level.ERROR, message);
-    }
-
-    public static void warn(String message) {
-        print(Level.WARNING, message);
-    }
-
-    public static void info(String message) {
-        print(Level.INFO, message);
-    }
-
-    public static void log(String message) {
-        print(Level.DEBUG, message);
-    }
-
-    public static void log(int value) {
-        log(value + "");
-    }
-
-    public static void log(float value) {
-        log(value + "");
-    }
-
-    public static void log(boolean value) {
-        log(value + "");
-    }
-
-    public static void log(Vector value) {
-        log(value.toString());
-    }
-
-    public static void log(Matrix4 value) {
-        log(value.toString());
-    }
-
-
     public static void drawRectScreen(Vector2 p1, Vector2 p2, Color4 color) {
         UiObject rect = new UiObject();
 

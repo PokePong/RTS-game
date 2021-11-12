@@ -5,11 +5,15 @@ import engine.model.Mesh;
 import engine.util.Constants;
 import engine.util.Debug;
 import engine.util.Color4;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public abstract class GameObject extends Node {
+
+    private static final Logger logger = LogManager.getLogger(GameObject.class);
 
     private UUID uuid;
     private Mesh mesh;
@@ -29,7 +33,7 @@ public abstract class GameObject extends Node {
         super.init();
         __init__();
         if (!instanced && !components.containsKey(Constants.RENDERER_COMPONENT)) {
-            Debug.warn("Renderer component missing!");
+            logger.warn("Renderer component missing!");
         }
         for (String key : components.keySet()) {
             components.get(key).init();
@@ -67,7 +71,7 @@ public abstract class GameObject extends Node {
 
     public void addComponent(String name, Component component) {
         if (components.containsKey(name)) {
-            Debug.err("Component already exists! " + name);
+            logger.error("Component already exists! " + name);
             return;
         }
         component.setParent(this);
@@ -76,7 +80,7 @@ public abstract class GameObject extends Node {
 
     public void removeComponent(String name) {
         if (!components.containsKey(name)) {
-            Debug.err("Component doesn't exist!");
+            logger.error("Component doesn't exist!");
             return;
         }
         components.remove(name);
@@ -84,7 +88,7 @@ public abstract class GameObject extends Node {
 
     public Component getComponent(String key) {
         if (!components.containsKey(key)) {
-            Debug.err("Component doesn't exist!");
+            logger.error("Component doesn't exist!");
             return null;
         }
         return components.get(key);

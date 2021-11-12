@@ -98,11 +98,11 @@ void main() {
 
     vec3 res = (ambiant + diffuse) * albedo;
 
-    // Edge sobel
+    /*// Edge sobel
     float sobel = processEdge(coords, 1);
     if (sobel >= 1) {
         res = mix(res, vec3(0), sobel / 2.5);
-    }
+    }*/
 
     vec4 pixel = vec4(res, 1.0);
     imageStore(img_Output, coords, pixel);
